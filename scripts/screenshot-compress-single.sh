@@ -57,4 +57,7 @@ savings=$(( (original_size - compressed_size) * 100 / original_size ))
 mv "$tmp" "$compressed_name"
 rm -f "$file"
 
+# Copy compressed screenshot to clipboard
+osascript -e "set the clipboard to (read (POSIX file \"$compressed_name\") as «class PNGf»)" 2>>"$LOG" && log "  Copied to clipboard" || log "  Clipboard copy failed"
+
 log "DONE   $compressed_name ($compressed_size bytes, ${savings}% smaller)"

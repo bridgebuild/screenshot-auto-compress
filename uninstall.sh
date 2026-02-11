@@ -25,7 +25,6 @@ osascript -e 'tell application "System Events" to delete folder action "Screensh
 
 # Reset macOS settings
 echo "[4/4] Resetting screenshot settings..."
-defaults delete com.apple.screencapture target 2>/dev/null || true
 defaults write com.apple.screencapture location ~/Desktop
 killall SystemUIServer 2>/dev/null || true
 

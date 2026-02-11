@@ -48,10 +48,7 @@ launchctl load ~/Library/LaunchAgents/${PLIST_LABEL}.plist
 # 7. Configure macOS
 echo "[7/7] Configuring macOS..."
 
-# Set screenshots to clipboard by default (Cmd+Shift+3/4)
-defaults write com.apple.screencapture target clipboard
-
-# Set file-save location to ~/Desktop/Screenshots (for Cmd+Shift+5)
+# Set file-save location to ~/Desktop/Screenshots
 defaults write com.apple.screencapture location ~/Desktop/Screenshots
 
 # Create Screenshots folder via Finder (avoids TCC issues)
@@ -83,7 +80,8 @@ echo ""
 echo "=== Done! ==="
 echo ""
 echo "How it works:"
-echo "  Cmd+Shift+3/4  -> Screenshot copied to clipboard (no file saved)"
-echo "  Cmd+Shift+5    -> Choose 'Save to Screenshots' for auto-compressed files"
+echo "  Take a screenshot -> Saved to ~/Desktop/Screenshots/"
+echo "  Auto-compressed with pngquant + oxipng (~50-70% smaller)"
+echo "  Compressed image automatically copied to clipboard for pasting"
 echo ""
 echo "Logs: ~/.local/logs/screenshot-compress.log"

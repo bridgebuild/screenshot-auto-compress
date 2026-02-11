@@ -1,32 +1,24 @@
 # Screenshot Auto-Compress
 
-Auto-compresses macOS screenshots using **pngquant** (lossy) + **oxipng** (lossless). Saves ~50-70% file size with no visible quality loss.
-
-By default, screenshots go straight to your **clipboard** (no files saved). When you need a file, use `Cmd+Shift+5` to save to the Screenshots folder where auto-compression kicks in.
+Auto-compresses macOS screenshots using **pngquant** (lossy) + **oxipng** (lossless). Saves ~50-70% file size with no visible quality loss. Compressed screenshots are automatically copied to your clipboard for easy pasting.
 
 ## Quick Install
 
 ```bash
-git clone https://github.com/sergioduarte/screenshot-auto-compress.git
+git clone https://github.com/bridgebuild/screenshot-auto-compress.git
 cd screenshot-auto-compress
 chmod +x install.sh && ./install.sh
 ```
 
 ## How It Works
 
-| Shortcut | Behavior |
-|----------|----------|
-| `Cmd+Shift+3` | Full screen -> clipboard (no file) |
-| `Cmd+Shift+4` | Selection -> clipboard (no file) |
-| `Cmd+Shift+5` | Screenshot toolbar -> choose "Save to Screenshots" for auto-compressed file |
-
-When saving to file:
-
-1. macOS saves the screenshot to `~/Desktop/Screenshots/`
-2. A **macOS Folder Action** triggers on new files
-3. The compression script runs pngquant + oxipng
-4. Original is replaced with a compressed version named `(Comp).png`
-5. A **watchdog** (every 5s) recreates the folder + Folder Action if deleted
+1. Take a screenshot (`Cmd+Shift+3`, `Cmd+Shift+4`, etc.)
+2. macOS saves it to `~/Desktop/Screenshots/`
+3. A **macOS Folder Action** triggers automatically
+4. The compression script runs pngquant + oxipng (~50-70% smaller)
+5. Original is replaced with a compressed version named `(Comp).png`
+6. Compressed image is **copied to your clipboard** — ready to paste
+7. A **watchdog** (every 5s) recreates the folder + Folder Action if deleted
 
 ## Files Installed
 
@@ -41,10 +33,7 @@ When saving to file:
 ## macOS Settings Changed
 
 ```bash
-# Screenshots default to clipboard
-defaults write com.apple.screencapture target clipboard
-
-# File saves go to ~/Desktop/Screenshots/
+# Screenshots save to ~/Desktop/Screenshots/
 defaults write com.apple.screencapture location ~/Desktop/Screenshots
 ```
 
@@ -83,7 +72,6 @@ rm ~/Library/Scripts/Folder\ Action\ Scripts/Compress\ Screenshots.scpt
 osascript -e 'tell application "System Events" to delete folder action "Screenshots"'
 
 # Reset macOS defaults
-defaults delete com.apple.screencapture target
 defaults write com.apple.screencapture location ~/Desktop
 killall SystemUIServer
 ```
