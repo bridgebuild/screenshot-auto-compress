@@ -26,6 +26,9 @@ sleep 1
 # Bail if file disappeared
 [[ -f "$file" ]] || exit 0
 
+# Copy original to clipboard immediately so it's available for pasting right away
+osascript -e "set the clipboard to (read (POSIX file \"$file\") as «class PNGf»)" 2>/dev/null
+
 original_size=$(stat -f%z "$file")
 basename_no_ext="${file%.png}"
 compressed_name="${basename_no_ext} (Comp).png"
